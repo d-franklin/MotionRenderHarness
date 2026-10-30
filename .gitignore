@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Render output
+*.mp4
+frames/
+out.mp4
+
+# Build output
+dist/
+
+# Environment files and local config that can hold credentials
+.env
+.env.*
+!.env.example
+*.secret
+credentials*
+*.credentials
+.netrc
+# .npmrc can carry an _authToken, which is why it is ignored here
+.npmrc
+
+# Keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+id_rsa*
+id_ed25519*
+
+# Cloud service account keys
+service-account*.json
+gcloud-key*.json
+
+# Logs
+*.log
+npm-debug.log*

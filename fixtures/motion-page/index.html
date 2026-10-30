@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>motion fixture</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #0b0f19;
+        overflow: hidden;
+      }
+      #stage {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        height: 100%;
+        justify-content: center;
+        padding: 0 96px;
+        box-sizing: border-box;
+        color: #e8ecf5;
+        font-family: system-ui, sans-serif;
+      }
+      h1 {
+        margin: 0;
+        font-size: 76px;
+        letter-spacing: -0.02em;
+      }
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      li {
+        font-size: 30px;
+        color: #8ea0c4;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stage">
+      <h1 id="title">Motion, rendered frame by frame</h1>
+      <ul>
+        <li id="l1">the composition is a pure function of t</li>
+        <li id="l2">the timeline is scrubbed, never played</li>
+        <li id="l3">every frame is the same on every run</li>
+      </ul>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

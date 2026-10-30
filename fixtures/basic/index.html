@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>mrh fixture</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #0b0f19;
+        color: #e8ecf5;
+        font-family: system-ui, sans-serif;
+        overflow: hidden;
+      }
+      #stage {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 32px;
+        height: 100%;
+        padding: 0 96px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 72px;
+        letter-spacing: -0.02em;
+      }
+      p {
+        margin: 0;
+        font-size: 28px;
+        color: #8ea0c4;
+      }
+      #bar {
+        height: 12px;
+        border-radius: 6px;
+        background: #1b2436;
+        overflow: hidden;
+      }
+      #fill {
+        height: 100%;
+        width: 0;
+        border-radius: 6px;
+        background: linear-gradient(90deg, #4f7cff, #9b5cff);
+      }
+      #clock {
+        font-variant-numeric: tabular-nums;
+        font-size: 24px;
+        color: #4f7cff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stage">
+      <h1 id="title">Motion Render Harness</h1>
+      <p id="subtitle">deterministic frames, straight into ffmpeg</p>
+      <div id="bar"><div id="fill"></div></div>
+      <div id="clock">t = 0.000</div>
+    </div>
+    <script>
+      // A pure function of t. Nothing here reads a clock or a random number,
+      // so the same t always produces the same frame.
+      const title = document.getElementById("title");
+      const subtitle = document.getElementById("subtitle");
+      const fill = document.getElementById("fill");
+      const clock = document.getElementById("clock");
+      const stage = document.getElementById("stage");
+
+      const ease = (x) => 1 - Math.pow(1 - Math.min(Math.max(x, 0), 1), 3);
+
+      window.seek = (t) => {
+        const in01 = ease(t / 0.8);
+        const out01 = ease((t - 2.2) / 0.8);
+
+        title.style.opacity = String(in01);
+        title.style.transform = `translateY(${(1 - in01) * 28}px)`;
+        subtitle.style.opacity = String(ease((t - 0.3) / 0.8));
+        subtitle.style.transform = `translateY(${(1 - ease((t - 0.3) / 0.8)) * 20}px)`;
+        fill.style.width = `${Math.min(t / 3, 1) * 100}%`;
+        stage.style.opacity = String(1 - out01);
+        stage.style.transform = `scale(${1 - out01 * 0.04})`;
+        clock.textContent = `t = ${t.toFixed(3)}`;
+      };
+
+      window.__ready = true;
+    </script>
+  </body>
+</html>
